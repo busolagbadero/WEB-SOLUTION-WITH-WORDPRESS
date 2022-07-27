@@ -78,7 +78,7 @@ I Test the configuration and reload the daemon using ' sudo mount -a ' and ' sud
 
 ![belmont16](https://user-images.githubusercontent.com/94229949/181279210-a15edec5-4c57-48b2-9a13-e6d766576637.png)
 
-## Step 2 — Prepare the Database Server
+##  Prepare the Database Server
 
 #Created 3 volumes in the same AZ  database Server EC2, each of 10 GiB.
 
@@ -90,10 +90,14 @@ I Test the configuration and reload the daemon using ' sudo mount -a ' and ' sud
 
 #' pvcreate /dev/xvdf1 /dev/xvdg1  /dev/xvdh1' utility to mark each of 3 disks as physical volumes  to be used by LVM
 
-#Used lvcreate utility to create 2 logical volumes. apps-lv  and logs-lv .' apps-lv ' will be used to store data for the Website while,  'logs-lv ' will  be used to store data for logs using  'sudo lvcreate -n apps-lv -L 14G webdata-vg '  ' sudo lvcreate -n logs-lv -L 14G webdata-vg '
+#Used lvcreate utility to create logical volume named ' db-lv '  using ' sudo lvcreate -n db-lv -L 14G vg-database '
 
-#To format the logical volumes with ext4 filesystem , I ran  ' sudo mkfs -t ext4 /dev/webdata-vg/apps-lv ' and  ' sudo mkfs -t ext4 /dev/webdata-vg/logs-lv '
+![belmont23](https://user-images.githubusercontent.com/94229949/181384360-aa8ca5d2-b471-416a-ae48-abaf87933c0c.png)
 
+
+#To format the logical volumes with ext4 filesystem , I ran  ' sudo mkfs -t ext4 /dev/vg-database/db-lv ' 
+
+![belmont24](https://user-images.githubusercontent.com/94229949/181384633-acdca756-9803-4e7d-be9c-7d0a2b3a5df6.png)
 
 ## Install webserver on wordpress
 
