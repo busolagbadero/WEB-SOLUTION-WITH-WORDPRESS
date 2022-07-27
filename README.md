@@ -192,3 +192,31 @@ sudo setsebool -P httpd_execmem 1
 ![belmont47](https://user-images.githubusercontent.com/94229949/181291264-ca958730-4ec5-42d8-adc5-705774d55fdd.png)
 
 
+## Installed MySQL on WEB and DB Server EC2 by running these commands:
+
+sudo mysql
+
+CREATE DATABASE wdpress;
+
+CREATE USER `myuser`@`%` IDENTIFIED BY 'mypass';
+
+GRANT ALL ON wdpress.* TO 'myuser'@'%';
+FLUSH PRIVILEGES;
+
+SHOW DATABASES;
+
+exit
+
+![belmont43rd](https://user-images.githubusercontent.com/94229949/181385366-5a131f4b-ef9f-4460-8679-89d7473a054a.png)
+
+## Configured WordPress to connect to remote database.
+
+I#nstalled MySQL server on both web and database server
+
+sudo vi  /etc/my.cnf to edit mysql configuration
+
+![belmont44rd](https://user-images.githubusercontent.com/94229949/181386886-0b452233-19b6-42d2-805c-c598946a364a.png)
+
+#Connected from the webserver to mysql database server using sudo mysql -h 172.31.0.250 -u myuser -p
+
+![belmont46](https://user-images.githubusercontent.com/94229949/181386413-6b4b88d4-19d5-4320-bf10-68b1d194ff43.png)
