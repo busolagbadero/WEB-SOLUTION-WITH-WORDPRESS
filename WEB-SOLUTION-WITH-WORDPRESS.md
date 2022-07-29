@@ -1,7 +1,7 @@
 # WEB-SOLUTION-WITH-WORDPRESS
 
 
-#Spinned up Servers by Launching two EC2 instances that will serve as "Web Server" and "database server" on AWS
+#Spinned up Servers by Launching two EC2 instances that will serve as "Web Server" and "Database server" 
 
 ![belmont0](https://user-images.githubusercontent.com/94229949/181261622-5357764e-80e5-4b59-bd2e-dc1f4d983260.png)
 
@@ -99,7 +99,17 @@ I Test the configuration and reload the daemon using ' sudo mount -a ' and ' sud
 
 ![belmont24](https://user-images.githubusercontent.com/94229949/181384633-acdca756-9803-4e7d-be9c-7d0a2b3a5df6.png)
 
-## Install webserver on wordpress
+#Used  ' sudo blkid ' to get the UUID of the device that will be used to update the /etc/fstab file and ' vi  into ' /etc/fstab ' file so that the mount configuration will persist after restart of the server.
+
+
+#Updated  /etc/fstab using the UUID 
+
+
+#Tested the configuration and reloaded the daemon using ' sudo mount -a ' and ' sudo systemctl daemon-reload '
+
+
+
+## Installed  Wordpress on Webserver
 
 #Updated the repository ' sudo yum -y update '
 
@@ -111,33 +121,9 @@ I Test the configuration and reload the daemon using ' sudo mount -a ' and ' sud
 
 #Start Apache with command  'sudo systemctl enable httpd ' and ' sudo systemctl start httpd '
 
-#Created  ' /var/www/html ' directory to store website files using  'sudo mkdir -p /var/www/html ' and Created ' /home/recovery/logs to store backup of log data and ' sudo mkdir -p /home/recovery/logs '
 
 
-#I went ahead to Mount /var/www/html on apps-lv logical volume using ' sudo mount /dev/webdata-vg/apps-lv /var/www/html/ '
-
-
-#When mounting on ' /var/log ' the files present on the ' /var/log ' will get deleted ,to prevent this from happening i Use rsync utility to backup all the files in the log directory /var/log into /home/recovery/logs using ' sudo rsync -av /var/log/. /home/recovery/logs/ ' and mount ' /var/log ' on  ' logs-lv ' logical volume using sudo  ' mount /dev/webdata-vg/logs-lv /var/log '
-
-
-#Then restored log files back into /var/log directory  ' sudo rsync -av /home/recovery/logs/. /var/log '
- 
- 
-#Used  ' sudo blkid ' to get the UUID of the device that will be used to update the /etc/fstab file and ' vi  into ' /etc/fstab ' file so that the mount configuration will persist after restart of the server.
-
-
-#Updated  /etc/fstab in this format using the UUID
-
-
-
-I Test the configuration and reload the daemon using ' sudo mount -a ' and ' sudo systemctl daemon-reload '
-
-
-
-
-
-
-## To install PHP and it’s dependencies ,i ran these commands:
+## Installed PHP and it’s dependencies using these commands:
 
 sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 
@@ -161,9 +147,9 @@ sudo systemctl enable php-fpm
 
 sudo setsebool -P httpd_execmem 1
 
-#Restart Apache using ' sudo systemctl restart httpd '
+#To restart apache i ran ' sudo systemctl restart httpd '
 
-## Download wordpress and copy wordpress to var/www/html
+## Downloaded Wordpress and copied wordpress to var/www/html using these commands:
 
   mkdir wordpress
   
@@ -192,7 +178,7 @@ sudo setsebool -P httpd_execmem 1
 ![belmont47](https://user-images.githubusercontent.com/94229949/181291264-ca958730-4ec5-42d8-adc5-705774d55fdd.png)
 
 
-## Installed MySQL on WEB and DB Server EC2 by running these commands:
+## Installed MySQL on WEB and DB Server EC2 and ran these commands on Database Server:
 
 sudo mysql
 
@@ -201,6 +187,7 @@ CREATE DATABASE wdpress;
 CREATE USER `myuser`@`%` IDENTIFIED BY 'mypass';
 
 GRANT ALL ON wdpress.* TO 'myuser'@'%';
+
 FLUSH PRIVILEGES;
 
 SHOW DATABASES;
@@ -211,7 +198,7 @@ exit
 
 ## Configured WordPress to connect to remote database.
 
-I#nstalled MySQL server on both web and database server
+Installed MySQL server on both web and database server
 
 sudo vi  /etc/my.cnf to edit mysql configuration
 
@@ -220,3 +207,12 @@ sudo vi  /etc/my.cnf to edit mysql configuration
 #Connected from the webserver to mysql database server using sudo mysql -h 172.31.0.250 -u myuser -p
 
 ![belmont46](https://user-images.githubusercontent.com/94229949/181386413-6b4b88d4-19d5-4320-bf10-68b1d194ff43.png)
+
+Accessed the browser from the link to the WordPress using the web server public address/wordpress
+
+
+![belmont48](https://user-images.githubusercontent.com/94229949/181833674-03f83357-365d-40ff-987e-6b71685117c0.png)
+
+![belmont49](https://user-images.githubusercontent.com/94229949/181833711-48b024fd-5a99-42b5-875e-3927393eea4d.png)
+
+![belmont50](https://user-images.githubusercontent.com/94229949/181833738-e4c658c9-423c-492e-8de3-3b259e24b2cd.png)
